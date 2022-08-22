@@ -5,15 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
-//TODO: https://youtu.be/QxTeE5EMiWI?t=12379
-
-
 export const AddPostPage = () => {
   const [title, setTitle] = React.useState("");
   const [text, setText] = React.useState("");
   const [img, setImg] = React.useState("");
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const submitHandler = () => {

@@ -9,16 +9,26 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { LoginPage } from "./pages/LoginPage";
 import { EditPostPage } from "./pages/EditPostPage";
 import { ToastContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
-import { getMe } from "./redux/slices/auth/authSlice";
+import { checkIsAuth, getMe } from "./redux/slices/auth/authSlice";
+
+//TODO: https://youtu.be/QxTeE5EMiWI?t=16877
 
 function App() {
   const dispatch = useDispatch();
+  const isAuth = useSelector(checkIsAuth);
+
+  // React.useEffect(() => {
+  //   dispatch(getMe());
+  // }, [dispatch]);
 
   React.useEffect(() => {
-    dispatch(getMe());
-  }, [dispatch]);
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      alert("Вы авторизованы");
+    }
+  }, []);
 
   return (
     <Layout>
