@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { Layout } from "./components/Layout";
+import { MainPage } from "./pages/MainPage";
+import { PostsPage } from "./pages/PostsPage";
+import { PostPage } from "./pages/PostPage";
+import { AddPostPage } from "./pages/AddPostPage";
+import { RegisterPage } from "./pages/RegisterPage";
+import { LoginPage } from "./pages/LoginPage";
+import { EditPostPage } from "./pages/EditPostPage";
+import { ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
+import { getMe } from "./redux/slices/auth/authSlice";
 
 function App() {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/posts" element={<PostsPage />} />
+        <Route path="/:id" element={<PostPage />} />
+        <Route path="/:id/edit" element={<EditPostPage />} />
+        <Route path="/new" element={<AddPostPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+      <ToastContainer position="bottom-right" />
+    </Layout>
   );
 }
 
